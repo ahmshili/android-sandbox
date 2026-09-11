@@ -1,40 +1,29 @@
 # Local Android Virtual Device (AVD) Sandbox
 
-A portable, well-documented workspace for manually provisioning and running Android Virtual Devices (AVD) using official command-line tools. 
+A portable, well-documented workspace for manually provisioning and running Android Virtual Devices (AVD) without requiring a full Android Studio installation. 
 
-To prevent repository bloat, all heavy SDK binaries, JDKs, and system images are kept strictly out of version control. This project also incorporates custom ROM extraction tools via a Git Submodule.
+To ensure clean version control and rapid repository cloning, all heavy SDK binaries, JDKs, and system images are kept strictly out of Git tracking. This project also integrates a custom ROM extraction toolkit via a Git Submodule.
 
-## 📦 Architecture
-* **Main Environment:** Manages the Android 11 (`x86_64`) emulator, hardware profiles, and SDK pathing.
-* **Submodule (`rom-extractor/`):** An independent toolkit for unpacking `payload.bin` files and extracting partitions like `boot.img`.
+## 📦 Project Architecture
+* **Root Environment:** Manages the Android 11 (`x86_64`) emulator, hardware profiles, and local SDK path execution via batch scripts.
+* **Submodule (`platform-tools/`):** An independent repository linked here for unpacking `payload.bin` files and extracting partitions like `boot.img`.
 
 ## ⚙️ Environment Setup
 
-### 1. Install Dependencies
+### 1. Install External Dependencies
 Download and extract the following into the repository root (these directories are ignored by Git):
 * **`jdk/`**: [OpenJDK 17](https://adoptium.net/temurin/releases/?version=17)
 * **`cmdline-tools/`**: [Android Command Line Tools](https://developer.android.com/tools)
 
-### 2. Configure Environment Variables
-Ensure your terminal session points to the local directories:
-* `JAVA_HOME` -> `./jdk`
-* `ANDROID_HOME` -> `./`
-* `ANDROID_AVD_HOME` -> `./.android/avd`
+### 2. Provisioning the Emulator
+Open your terminal (PowerShell/CMD) in the repository root and set your temporary paths to authenticate the SDK and download the Android 11 image:
 
-Add the `bin` directories of `jdk`, `cmdline-tools/latest`, and `emulator` to your system `PATH`.
+```cmd
+set JAVA_HOME=%cd%\jdk
+set ANDROID_HOME=%cd%
+set ANDROID_AVD_HOME=%cd%\.android\avd
+set PATH=%JAVA_HOME%\bin;%ANDROID_HOME%\cmdline-tools\latest\bin;%ANDROID_HOME%\emulator;%PATH%
 
-### 3. Provisioning the Emulator
-Use the SDK manager to fetch the system image and accept licenses:
-```bash
 sdkmanager --licenses
 sdkmanager "system-images;android-30;google_apis_playstore;x86_64"
-```
-Create the AVD instance:
-
-Bash
 avdmanager create avd -n Android11_x64 -k "system-images;android-30;google_apis_playstore;x86_64"
-4. Launching
-Start the emulator with hardware acceleration enabled:
-
-Bash
-emulator -avd Android11_x64 -gpu auto -scale 0.6 -no-snapshot-load
