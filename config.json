@@ -1,0 +1,10 @@
+{
+  "tools": {
+    "jdk": "DIRECT_URL_TO_OPENJDK_17_ZIP",
+    "cmdline_tools": "DIRECT_URL_TO_COMMANDLINETOOLS_ZIP",
+    "payload_dumper": "DIRECT_URL_TO_PAYLOAD_DUMPER_ZIP_OR_TAR"
+  },
+  "roms": {
+    "crdroid": "https://sourceforge.net/projects/crdroid/files/alioth/9.x/crDroidAndroid-13.0-20241108-alioth-v9.20.zip/download"
+  }
+}

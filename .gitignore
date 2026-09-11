@@ -1,0 +1,23 @@
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Environment & Heavy Binaries
+.android/
+.temp/
+cmdline-tools/
+emulator/
+jdk/
+platform-tools/
+system-images/
+licenses/
+rom_extracted/
+
+# Archives
+*.zip
+*.img
+*.bin
+*.iso
+
+# SDK and local metadata files
+.knownPackages
